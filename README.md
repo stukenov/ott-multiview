@@ -74,7 +74,7 @@ For example, adding:
 Will play path/to/placeholder/videostream.mpd in the extra divs.
 If no `placeholder` is defined, these divs' `display` attribute will be set to `none`, effectively hiding them.
 
-To toggle audio on or off click on the viewport that you want to listen to. A green border indicates for which viewport the audio is enabled. You can also use the keyboard keys 1-8.
+To toggle audio on or off click on the viewport that you want to listen to. A green border indicates for which viewport the audio is enabled. You can also use the keyboard keys 1-8 to control the first eight viewports.
 
 ## Keyboard Shortcuts
 - SPACE - toggle play / pause for all viewports
