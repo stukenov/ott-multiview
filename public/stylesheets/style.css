@@ -118,3 +118,8 @@ video {
   background-color: #000;
 }
 
+/* Hide info row by default */
+#infoRow {
+  display: none;
+}
+
