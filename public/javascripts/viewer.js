@@ -139,10 +139,12 @@ function togglePlayback(videoelem) {
 }
 
 function togglePlaybackOnAllViewPorts() {
-  for(var i=0; i<2; i++) {
+  for(var i=0; i<4; i++) {
     for(var j=0; j<4; j++) {
       var videoelem = document.getElementById('vp'+i+j);
-      togglePlayback(videoelem);
+      if (videoelem) {
+        togglePlayback(videoelem);
+      }
     }
   }
   togglePlayback(document.getElementById('vpleft')); 
@@ -152,12 +154,15 @@ function togglePlaybackOnAllViewPorts() {
 function initMultiView(config) {
   if (config) {
     shaka.polyfill.installAll();
-    initViewPortRow(0, 4, config);
-    initViewPortRow(1, 4, config);
-    if(config['row0'][0]) { 
+    for(var r=0; r<4; r++) {
+      if(config['row'+r]) {
+        initViewPortRow(r, 4, config);
+      }
+    }
+    if(config['row0'] && config['row0'][0]) {
       initViewPort(config['row0'][0], 'vpleft');
     }
-    if(config['row1'][0]) { 
+    if(config['row1'] && config['row1'][0]) {
       initViewPort(config['row1'][0], 'vpright');
     }
   }

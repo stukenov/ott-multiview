@@ -10,7 +10,9 @@ const path = require('path');
 function initiateDefaultConf() {
   return {
     "row0": [],
-    "row1": []
+    "row1": [],
+    "row2": [],
+    "row3": []
   };
 }
 
