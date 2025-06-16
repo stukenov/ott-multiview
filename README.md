@@ -44,8 +44,11 @@ REDIRECT_HTTP=true
 When the Node express app is up and running you can direct your Chrome browser to:
 
 > http://localhost:3000/?config=example.json`
-		
-where `example.json` is a configuration file placed in the directory `config/` and can look like this:
+
+where `example.json` is a configuration file placed in the directory `config/`.
+If the `config` parameter is omitted the application will instead look for
+`config/default.json`.
+It can look like this:
 ```json
 {
 	"row0": [

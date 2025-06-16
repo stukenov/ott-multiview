@@ -18,15 +18,15 @@ function initiateDefaultConf() {
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  conf = req.query.config;
-  var confobj = initiateDefaultConf();
-  if(conf) {
-    var confpath = '../config/'+conf;
-    console.log("Loading config " + confpath);
-    if (fs.existsSync(path.join(__dirname, confpath))) {
-      var confobj = JSON.parse(fs.readFileSync(path.join(__dirname, confpath), 'utf8'));
-    }
+  let conf = req.query.config || 'default.json';
+  let confobj = initiateDefaultConf();
+
+  const confpath = '../config/' + conf;
+  console.log('Loading config ' + confpath);
+  if (fs.existsSync(path.join(__dirname, confpath))) {
+    confobj = JSON.parse(fs.readFileSync(path.join(__dirname, confpath), 'utf8'));
   }
+
   res.render('index', { title: 'Eyevinn Technology OTT Multiview', conf: JSON.stringify(confobj) });
 });
 
