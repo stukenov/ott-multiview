@@ -29,7 +29,43 @@ router.get('/stream', function(req, res) {
   }
 
   const stream = confobj['row' + row][col];
-  res.render('stream', { title: stream.title, stream });
+
+  const rows = Object.keys(confobj).filter(k => k.match(/^row\d+$/)).sort((a, b) => {
+    return parseInt(a.slice(3), 10) - parseInt(b.slice(3), 10);
+  });
+  const positions = [];
+  rows.forEach((rk) => {
+    const rIdx = parseInt(rk.slice(3), 10);
+    const arr = confobj[rk];
+    if (Array.isArray(arr)) {
+      arr.forEach((_, cIdx) => {
+        positions.push({ row: rIdx, col: cIdx });
+      });
+    }
+  });
+  positions.sort((a, b) => {
+    if (a.row === b.row) {
+      return a.col - b.col;
+    }
+    return a.row - b.row;
+  });
+
+  const idx = positions.findIndex(p => p.row === row && p.col === col);
+  let prev, next;
+  if (idx > 0) {
+    prev = positions[idx - 1];
+  }
+  if (idx >= 0 && idx < positions.length - 1) {
+    next = positions[idx + 1];
+  }
+
+  res.render('stream', {
+    title: stream.title,
+    stream,
+    prev,
+    next,
+    config: conffile
+  });
 });
 
 module.exports = router;
