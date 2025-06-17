@@ -25,7 +25,7 @@ Start the Node express app:
 
 # ENV vars
 
-To start a listener on a port other than 3000, set/export the `PORT` ENV var.
+The application listens on port 3939 by default. To run on a different port, set/export the `PORT` environment variable.
 To start a HTTPs server, export:
 ```
 SSL_KEY=/path/to/key
@@ -47,7 +47,7 @@ prefix is preserved by the proxy.
 
 When the Node express app is up and running you can direct your Chrome browser to:
 
-> http://localhost:3000/?config=example.json`
+> http://localhost:3939/?config=example.json`
 
 where `example.json` is a configuration file placed in the directory `config/`.
 If the `config` parameter is omitted the application will instead look for
