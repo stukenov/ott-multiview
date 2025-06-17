@@ -49,6 +49,7 @@ th {
   min-height: 200px;
   padding: 0px;
   text-align: center;
+  position: relative;
 }
 
 .info {
@@ -87,6 +88,22 @@ video {
 
 .video-unmuted {
   border: 3px solid green;
+}
+
+.view-link {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 20;
+  display: none;
+  padding: 2px 6px;
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+.vp:hover .view-link {
+  display: block;
 }
 
 .title {

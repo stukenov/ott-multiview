@@ -5,6 +5,13 @@
 var activeViewPort;
 var shakaPlayers = {};
 
+function getQueryParameter(name) {
+  name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+  var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+  var results = regex.exec(window.location.search);
+  return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+}
+
 function initHlsPlayer(conf, videoelemid, donecb) {
   var hlsconfig = {
     capLevelToPlayerSize: true
@@ -104,6 +111,11 @@ function initViewPortRow(row, numcols, config) {
     c = config['row'+row][i];
     if (c) {
       initViewPort(c, videoelemid);
+      var linkElem = document.getElementById(videoelemid + '-view-link');
+      if (linkElem) {
+        var cfg = getQueryParameter('config') || 'default.json';
+        linkElem.href = '/stream?config=' + encodeURIComponent(cfg) + '&row=' + row + '&col=' + i;
+      }
     }else if (config['placeholder'] !== undefined &&  config['placeholder'][0] !== undefined){
 	c = config['placeholder'][0];
         initViewPort(c, videoelemid);
