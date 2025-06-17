@@ -14,6 +14,14 @@ var streamRoutes = require('./routes/stream');
 
 var app = express();
 
+// Optional base path used when the application is served behind a reverse proxy
+// on a path prefix. Example: if BASE_PATH=/mcr the app will listen on
+// https://example.com/mcr/.
+var basePath = process.env.BASE_PATH || '';
+if (basePath !== '' && basePath.endsWith('/')) {
+  basePath = basePath.slice(0, -1);
+}
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -24,10 +32,10 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(basePath, express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/', streamRoutes);
+app.use(basePath || '/', routes);
+app.use(basePath || '/', streamRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
