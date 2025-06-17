@@ -4,6 +4,10 @@
 // Author: Jonas Birme (Eyevinn Technology)
 var activeViewPort;
 var shakaPlayers = {};
+// Determine base path in case the application is hosted behind a proxy with a
+// path prefix. This removes the trailing file or slash from the current
+// location so that generated links work regardless of where the app is mounted.
+var basePath = window.location.pathname.replace(/\/[^\/]*$/, '');
 
 function getQueryParameter(name) {
   name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -114,7 +118,9 @@ function initViewPortRow(row, numcols, config) {
       var linkElem = document.getElementById(videoelemid + '-view-link');
       if (linkElem) {
         var cfg = getQueryParameter('config') || 'default.json';
-        linkElem.href = '/stream?config=' + encodeURIComponent(cfg) + '&row=' + row + '&col=' + i;
+        // Use the computed basePath so that the stream links work when the
+        // application is served behind a proxy on a path prefix.
+        linkElem.href = basePath + '/stream?config=' + encodeURIComponent(cfg) + '&row=' + row + '&col=' + i;
       }
     }else if (config['placeholder'] !== undefined &&  config['placeholder'][0] !== undefined){
 	c = config['placeholder'][0];
