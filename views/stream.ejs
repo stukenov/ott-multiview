@@ -7,10 +7,18 @@
 </head>
 <body>
   <div class="col-md-8 col-md-offset-2 vp vp-large" id="single-view" style="margin-top:20px;">
-    <div class="videoInfo tiny"></div>
     <video id="single" class="video-active"></video>
     <div class="tiny overlay" id="single-meta"></div>
     <div class="title" id="single-title"></div>
+  </div>
+  <div class="text-center" style="margin-top:20px;">
+    <% if (typeof prev !== 'undefined') { %>
+      <a id="prev-link" class="btn btn-primary" data-row="<%= prev.row %>" data-col="<%= prev.col %>">Previous Stream</a>
+    <% } %>
+    <% if (typeof next !== 'undefined') { %>
+      <a id="next-link" class="btn btn-primary" data-row="<%= next.row %>" data-col="<%= next.col %>">Next Stream</a>
+    <% } %>
+    <a id="all-link" class="btn btn-default">All Streams</a>
   </div>
   <script src="javascripts/hls.min.js" type="text/javascript"></script>
   <script src="javascripts/shaka-player.compiled.js" type="text/javascript"></script>
@@ -20,6 +28,25 @@
       var conf = <%- JSON.stringify(stream) %>;
       initViewPort(conf, 'single');
       activateViewPort('single');
+
+      var basePath = window.location.pathname.replace(/\/[^\/]*$/, '');
+      var cfgName = '<%= config %>';
+      var allLink = document.getElementById('all-link');
+      if (allLink) {
+        allLink.href = basePath + '/?config=' + encodeURIComponent(cfgName);
+      }
+      <% if (typeof prev !== 'undefined') { %>
+      var prevLink = document.getElementById('prev-link');
+      if (prevLink) {
+        prevLink.href = basePath + '/stream?config=' + encodeURIComponent(cfgName) + '&row=<%= prev.row %>&col=<%= prev.col %>';
+      }
+      <% } %>
+      <% if (typeof next !== 'undefined') { %>
+      var nextLink = document.getElementById('next-link');
+      if (nextLink) {
+        nextLink.href = basePath + '/stream?config=' + encodeURIComponent(cfgName) + '&row=<%= next.row %>&col=<%= next.col %>';
+      }
+      <% } %>
     });
   </script>
 </body>
