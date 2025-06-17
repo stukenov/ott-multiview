@@ -37,6 +37,10 @@ If you wish to auto redirect from HTTP (TCP 80) to HTTPs, set/export:
 ```
 REDIRECT_HTTP=true
 ```
+If the application is served behind a reverse proxy on a sub path you can set
+the `BASE_PATH` environment variable to that path (e.g. `/mcr`).
+This ensures that static assets and routes are mounted correctly when the
+prefix is preserved by the proxy.
 **Note that you can only start a listener on TCP 80 and 443 as a super user since these are well known port.**
 
 # Usage
